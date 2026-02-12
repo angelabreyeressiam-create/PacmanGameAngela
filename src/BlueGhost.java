@@ -1,4 +1,5 @@
 import java.awt.*;
+import java.awt.event.KeyEvent;
 
 /**
  * Created by chales on 11/6/2017.
@@ -81,6 +82,32 @@ public class BlueGhost {
         rect = new Rectangle(xpos,ypos,width,height);
 
     }
+    public void keyPressed(KeyEvent event){
+        if (keyPressed() == true){
+
+        }
+    }
+//    public void keyPressed(KeyEvent e) {
+//        pressingKey = true;
+//
+//
+//        if (e.getKeyCode() == KeyEvent.VK_UP) {
+//            piggy.dx = 0;
+//            piggy.dy = -10;
+//        }
+//        if (e.getKeyCode() == KeyEvent.VK_DOWN) {
+//            BlueGhost.dx = 0;
+//            BlueGhost.dy = 10;
+//        }
+//        if (e.getKeyCode() == KeyEvent.VK_LEFT) {
+//            BlueGhost.dx = -10;
+//            BlueGhost.dy = 0;
+//        }
+//        if (e.getKeyCode() == KeyEvent.VK_RIGHT) {
+//            BlueGhost.dx = 10;
+//            BlueGhost.dy = 0;
+//        }
+//    }
 }
 
 

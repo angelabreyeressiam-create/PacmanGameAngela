@@ -1,11 +1,10 @@
 import java.awt.*;
-import java.awt.event.KeyEvent;
 
 /**
  * Created by chales on 11/6/2017.
  * Edits by mblair on 10/27/2025
  */
-public class BlueGhost {
+public class Coin {
 
     //VARIABLE DECLARATION SECTION
     //Here's where you state which variables you are going to use.
@@ -20,11 +19,12 @@ public class BlueGhost {
     public Rectangle rect;
     public double successRate;
     public int health;
+    public int length = 12;
 
 
     //This is a constructor that takes 3 parameters.
     // This allows us to specify the hero's name and position when we build it.
-    public BlueGhost(String pName, int pXpos, int pYpos, double psuccess) {
+    public Coin (String pName, int pXpos, int pYpos, double psuccess) {
         name = pName;
         xpos = pXpos;
         ypos = pYpos;
@@ -82,32 +82,6 @@ public class BlueGhost {
         rect = new Rectangle(xpos,ypos,width,height);
 
     }
-    public void keyPressed(KeyEvent event){
-       // if (keyPressed() == true){
-
-      //  }
-    }
-//    public void keyPressed(KeyEvent e) {
-//        pressingKey = true;
-//
-//
-//        if (e.getKeyCode() == KeyEvent.VK_UP) {
-//            piggy.dx = 0;
-//            piggy.dy = -10;
-//        }
-//        if (e.getKeyCode() == KeyEvent.VK_DOWN) {
-//            BlueGhost.dx = 0;
-//            BlueGhost.dy = 10;
-//        }
-//        if (e.getKeyCode() == KeyEvent.VK_LEFT) {
-//            BlueGhost.dx = -10;
-//            BlueGhost.dy = 0;
-//        }
-//        if (e.getKeyCode() == KeyEvent.VK_RIGHT) {
-//            BlueGhost.dx = 10;
-//            BlueGhost.dy = 0;
-//        }
-//    }
 }
 
 

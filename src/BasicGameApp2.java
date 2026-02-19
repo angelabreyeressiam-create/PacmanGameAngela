@@ -9,6 +9,8 @@
 
 //Graphics Libraries
 import java.awt.Graphics2D;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.awt.image.BufferStrategy;
 import java.awt.*;
 import javax.swing.JFrame;
@@ -16,7 +18,7 @@ import javax.swing.JPanel;
 
 //*******************************************************************************
 
-public class BasicGameApp2 implements Runnable {
+public class BasicGameApp2 implements Runnable, KeyListener {
 
     //Variable Definition Section
     //Declare the variables used in the program
@@ -41,7 +43,8 @@ public class BasicGameApp2 implements Runnable {
     PinkGhost pinkGhost;
     Image death = Toolkit.getDefaultToolkit().getImage("deathemoji.png");
     Image backround = Toolkit.getDefaultToolkit().getImage("backround.jpeg");
-
+    Coin [] coinshower = new Coin[10];
+    int keyNum=0;
 
     public boolean firstCrash;
     public boolean firstcharactercrash;
@@ -50,7 +53,8 @@ public class BasicGameApp2 implements Runnable {
     // Main method definition
     // This is the code that runs first and automatically
     public static void main(String[] args) {
-        BasicGameApp ex = new BasicGameApp();   //creates a new instance of the game
+
+        BasicGameApp2 ex = new BasicGameApp2();   //creates a new instance of the game
         new Thread(ex).start();                 //creates a threads & starts up the code in the run( ) method
     }
 
@@ -62,6 +66,12 @@ public class BasicGameApp2 implements Runnable {
         setUpGraphics();
         firstcharactercrash = true;
         secondCrash = true;
+        Image coinImg = Toolkit.getDefaultToolkit().getImage("goldcoin.png");
+            for (int i = 0; i < Coin.length; i++) {
+                coinshower[i].move;
+
+        }
+                fill array with new Coin("goldcoin", )
         pacman = new Pacman("pacman.png", 100, 400, 0.75);
         packmanImage = Toolkit.getDefaultToolkit().getImage("pacman.png");
         pinkGhost = new PinkGhost("pinkghost.png", 300, 300, 0.75);
@@ -99,6 +109,11 @@ public class BasicGameApp2 implements Runnable {
 
 
     public void moveThings() {
+
+        for (int i = 0; i < Coin.length; i++) {
+            coinshower[i].move;
+
+        }
         pacman.wrap();
         blueGhost.bounce();
         pinkGhost.bounce();
@@ -173,6 +188,7 @@ public class BasicGameApp2 implements Runnable {
         Graphics2D g = (Graphics2D) bufferStrategy.getDrawGraphics();
         g.clearRect(0, 0, WIDTH, HEIGHT);
         g.drawImage(backround, 0,0, WIDTH,HEIGHT,null);
+        g.drawImage(coinshowerImage, Coin.xpos, Coin.ypos, Coin.width, Coin.length, null);
 
         g.setColor(new Color(50,90,80));
       //  g.fillRect(800,70,(100-voldemort.health),15, voldemort.health);
@@ -199,6 +215,7 @@ public class BasicGameApp2 implements Runnable {
 
     //Graphics setup method
     private void setUpGraphics() {
+        System.out.println("setUpGraphics");
         frame = new JFrame("Application Template");   //Create the program window or frame.  Names it.
 
         panel = (JPanel) frame.getContentPane();  //sets up a JPanel which is what goes in the frame
@@ -212,6 +229,7 @@ public class BasicGameApp2 implements Runnable {
         canvas.setIgnoreRepaint(true);
 
         panel.add(canvas);  // adds the canvas to the panel.
+        canvas.addKeyListener(this);
 
         // frame operations
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);  //makes the frame close and exit nicely
@@ -227,4 +245,27 @@ public class BasicGameApp2 implements Runnable {
     }
 
 
+    @Override
+    public void keyTyped(KeyEvent e) {
+
+    }
+
+    @Override
+    public void keyPressed(KeyEvent e) {
+        System.out.println("press key"+e.getKeyCode());
+        keyNum= e.getKeyCode();
+        if(keyNum==37){
+            pacman.dx= -10;
+            pacman.dy=0;
+        }
+        if(keyNum==39){
+            pacman.dx = 10;
+            pacman.dy = 0;
+        }
+
+    }
+
+    @Override
+    public void keyReleased(KeyEvent e) {
+    }
 }

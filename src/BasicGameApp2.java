@@ -42,7 +42,8 @@ public class BasicGameApp2 implements Runnable, KeyListener {
     Image pinkghostImage;
     PinkGhost pinkGhost;
     Image death = Toolkit.getDefaultToolkit().getImage("deathemoji.png");
-    Image backround = Toolkit.getDefaultToolkit().getImage("backround.jpeg");
+    Image background = Toolkit.getDefaultToolkit().getImage("background.jpeg");
+    Image goldcoin = Toolkit.getDefaultToolkit().getImage("goldcoin.png");
     Coin [] coinshower = new Coin[10];
     int keyNum=0;
 
@@ -66,18 +67,17 @@ public class BasicGameApp2 implements Runnable, KeyListener {
         setUpGraphics();
         firstcharactercrash = true;
         secondCrash = true;
-        Image coinImg = Toolkit.getDefaultToolkit().getImage("goldcoin.png");
-            for (int i = 0; i < Coin.length; i++) {
-                coinshower[i].move;
-
+        for (int i = 0; i < coinshower.length; i++) {
+            coinshower[i] = new Coin("nope",(int)(Math.random()*200),(int)(Math.random()*800), 0.3);
         }
-                fill array with new Coin("goldcoin", )
+
         pacman = new Pacman("pacman.png", 100, 400, 0.75);
         packmanImage = Toolkit.getDefaultToolkit().getImage("pacman.png");
         pinkGhost = new PinkGhost("pinkghost.png", 300, 300, 0.75);
         pinkghostImage = Toolkit.getDefaultToolkit().getImage("pinkghost.png");
         blueGhost = new BlueGhost("blueghost.png", 500, 200, 0.25);
         blueghostImage = Toolkit.getDefaultToolkit().getImage("blueghost.png");
+
 //        voldemort2 = new Voldemort ("voldemort.png", 500, 100, 0.25);
 //        voldemortImage2 = Toolkit.getDefaultToolkit().getImage("voldemort.png");
         run();
@@ -110,11 +110,11 @@ public class BasicGameApp2 implements Runnable, KeyListener {
 
     public void moveThings() {
 
-        for (int i = 0; i < Coin.length; i++) {
-            coinshower[i].move;
+        for (int i = 0; i < coinshower.length; i++) {
+            coinshower[i].move();
 
         }
-        pacman.wrap();
+        pacman.move();
         blueGhost.bounce();
         pinkGhost.bounce();
     }
@@ -187,8 +187,8 @@ public class BasicGameApp2 implements Runnable, KeyListener {
     private void render() {
         Graphics2D g = (Graphics2D) bufferStrategy.getDrawGraphics();
         g.clearRect(0, 0, WIDTH, HEIGHT);
-        g.drawImage(backround, 0,0, WIDTH,HEIGHT,null);
-        g.drawImage(coinshowerImage, Coin.xpos, Coin.ypos, Coin.width, Coin.length, null);
+        g.drawImage(background, 0,0, WIDTH,HEIGHT,null);
+
 
         g.setColor(new Color(50,90,80));
       //  g.fillRect(800,70,(100-voldemort.health),15, voldemort.health);
@@ -201,6 +201,11 @@ public class BasicGameApp2 implements Runnable, KeyListener {
         g.drawImage(blueghostImage, blueGhost.xpos, blueGhost.ypos, blueGhost.width, blueGhost.height, null);
         g.drawImage(pinkghostImage, pinkGhost.xpos, pinkGhost.ypos, pinkGhost.width, pinkGhost.height, null);
 
+
+        for (int i = 0; i < coinshower.length; i++) {
+            g.drawImage(goldcoin, coinshower[i].xpos, coinshower[i].ypos, coinshower[i].width, coinshower[i].height, null);
+
+        }
         g.dispose();
         bufferStrategy.show();
     }
@@ -261,6 +266,10 @@ public class BasicGameApp2 implements Runnable, KeyListener {
         if(keyNum==39){
             pacman.dx = 10;
             pacman.dy = 0;
+        }
+        if(keyNum==38){
+            pacman.dx = 0;
+            pacman.dy = 10;
         }
 
     }

@@ -44,7 +44,7 @@ public class BasicGameApp2 implements Runnable, KeyListener {
     Image death = Toolkit.getDefaultToolkit().getImage("deathemoji.png");
     Image background = Toolkit.getDefaultToolkit().getImage("background.jpeg");
     Image goldcoin = Toolkit.getDefaultToolkit().getImage("goldcoin.png");
-    Coin [] coinshower = new Coin[10];
+    Coin [] coinshower = new Coin[20];
     int keyNum=0;
 
     public boolean firstCrash;
@@ -68,7 +68,7 @@ public class BasicGameApp2 implements Runnable, KeyListener {
         firstcharactercrash = true;
         secondCrash = true;
         for (int i = 0; i < coinshower.length; i++) {
-            coinshower[i] = new Coin("nope",(int)(Math.random()*200),(int)(Math.random()*800), 0.3);
+            coinshower[i] = new Coin("nope",(int)(Math.random()*1000),(int)(Math.random()*800), 0.3);
         }
 
         pacman = new Pacman("pacman.png", 100, 400, 0.75);
@@ -111,7 +111,7 @@ public class BasicGameApp2 implements Runnable, KeyListener {
     public void moveThings() {
 
         for (int i = 0; i < coinshower.length; i++) {
-            coinshower[i].move();
+            coinshower[i].bounce();
 
         }
         pacman.move();
@@ -134,6 +134,7 @@ public class BasicGameApp2 implements Runnable, KeyListener {
         if (pinkGhost.rect.intersects(blueGhost.rect) == false) {
             firstCrash = true;
         }
+
 
 //         if (pacman.isAlive= false){
 //            pacman.isAlive = true;
@@ -180,6 +181,11 @@ public class BasicGameApp2 implements Runnable, KeyListener {
             secondCrash = true;
         }
 
+    }
+    public void coinGhostCrash() {
+        if(goldcoin.rect.intersects(blueGhost.rect) == true){
+
+        }
     }
 
 

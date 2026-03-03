@@ -29,8 +29,8 @@ public class Pacman {
         ypos = pYpos;
         dx = 5;
         dy = 5;
-        width = 150;
-        height = 150;
+        width = 80;
+        height = 80;
         isAlive = true;
         rect = new Rectangle(xpos,ypos,width,height);
         successRate = psuccess;

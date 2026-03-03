@@ -28,8 +28,8 @@ public class Coin {
         name = pName;
         xpos = pXpos;
         ypos = pYpos;
-        dx = 5;
-        dy = 5;
+        dx = 0;
+        dy = 0;
         width = 30;
         height = 30;
         isAlive = true;

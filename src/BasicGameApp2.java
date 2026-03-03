@@ -50,6 +50,7 @@ public class BasicGameApp2 implements Runnable, KeyListener {
     public boolean firstCrash;
     public boolean firstcharactercrash;
     public boolean secondCrash;
+    public boolean coinPacmanCrash;
 
     // Main method definition
     // This is the code that runs first and automatically
@@ -111,7 +112,7 @@ public class BasicGameApp2 implements Runnable, KeyListener {
     public void moveThings() {
 
         for (int i = 0; i < coinshower.length; i++) {
-            coinshower[i].bounce();
+            coinshower[i].move();
 
         }
         pacman.move();
@@ -124,13 +125,12 @@ public class BasicGameApp2 implements Runnable, KeyListener {
             firstCrash = false;
             blueGhost.dx = -blueGhost.dx;
             blueGhost.dy = -blueGhost.dy;
+            if (Math.random() > 0.5) {
+                pinkGhost.dx = -pinkGhost.dx;
+            } else {
+                pinkGhost.dy = -pinkGhost.dy;
+            }
         }
-        if (Math.random() > 0.5) {
-            pinkGhost.dx = -pinkGhost.dx;
-        } else {
-            pinkGhost.dy = -pinkGhost.dy;
-        }
-
         if (pinkGhost.rect.intersects(blueGhost.rect) == false) {
             firstCrash = true;
         }
@@ -182,8 +182,19 @@ public class BasicGameApp2 implements Runnable, KeyListener {
         }
 
     }
-    public void coinGhostCrash() {
-        if(goldcoin.rect.intersects(blueGhost.rect) == true){
+    public void coinPacmanCrash() {
+        for (int i = 0; i < coinshower.length; i++) {
+            coinshower[i] = new Coin("nope", (int) (Math.random() * 1000), (int) (Math.random() * 800), 0.3);
+        coinshower[i].rect = new Rectangle();
+        pacman.rect = new Rectangle();
+      if (coinshower[i].rect.intersects(pacman.rect) == true){
+          coinshower[i].xpos = pacman.xpos;
+          coinshower[i].ypos = pacman.ypos;
+          coinshower[i].dx = pacman.dx;
+          coinshower[i].dy = pacman.dy;
+          coinshower[i].rect = new Rectangle();
+
+      }
 
         }
     }
@@ -275,6 +286,10 @@ public class BasicGameApp2 implements Runnable, KeyListener {
         }
         if(keyNum==38){
             pacman.dx = 0;
+            pacman.dy = -10;
+        }
+        if(keyNum==40){
+            pacman.dx = 0;
             pacman.dy = 10;
         }
 
@@ -282,5 +297,21 @@ public class BasicGameApp2 implements Runnable, KeyListener {
 
     @Override
     public void keyReleased(KeyEvent e) {
+        if(keyNum==37){
+            pacman.dx= 0;
+            pacman.dy=0;
+        }
+        if(keyNum==39){
+            pacman.dx = 0;
+            pacman.dy = 0;
+        }
+        if(keyNum==38){
+            pacman.dx = 0;
+            pacman.dy = 0;
+        }
+        if(keyNum==40){
+            pacman.dx = 0;
+            pacman.dy = 0;
+        }
     }
 }

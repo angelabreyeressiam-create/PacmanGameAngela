@@ -44,7 +44,7 @@ public class BasicGameApp2 implements Runnable, KeyListener {
     Image death = Toolkit.getDefaultToolkit().getImage("deathemoji.png");
     Image background = Toolkit.getDefaultToolkit().getImage("background.jpeg");
     Image goldcoin = Toolkit.getDefaultToolkit().getImage("goldcoin.png");
-    Coin [] coinshower = new Coin[30];
+    Coin [] coinshower = new Coin[35];
     int keyNum=0;
 
     public boolean firstCrash;

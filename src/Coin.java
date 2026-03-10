@@ -20,6 +20,7 @@ public class Coin {
     public double successRate;
     public int health;
     public int length = 12;
+    public boolean crash;
 
 
     //This is a constructor that takes 3 parameters.
@@ -36,6 +37,7 @@ public class Coin {
         rect = new Rectangle(xpos,ypos,width,height);
         successRate = psuccess;
         health = 500;
+        crash = false;
  
     }
 

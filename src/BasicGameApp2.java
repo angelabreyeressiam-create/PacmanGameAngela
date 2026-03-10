@@ -52,6 +52,9 @@ public class BasicGameApp2 implements Runnable, KeyListener {
     public boolean secondCrash;
     public boolean coinPacmanCrash;
     public int HealthBar = 8;
+    public int CoinCounter;
+ //   public SoundFile pacmaneating;
+ //   pacmaneating = new SoundFile("pacmaneating.wav");
 
     // Main method definition
     // This is the code that runs first and automatically
@@ -71,7 +74,7 @@ public class BasicGameApp2 implements Runnable, KeyListener {
         secondCrash = true;
         coinPacmanCrash = true;
         for (int i = 0; i < coinshower.length; i++) {
-            coinshower[i] = new Coin("nope",(int)(Math.random()*1000),(int)(Math.random()*800), 0.3);
+            coinshower[i] = new Coin("nope",(int)(Math.random()*990),(int)(Math.random()*500), 0.3);
         }
 
         pacman = new Pacman("pacman.png", 100, 400, 0.75);
@@ -200,9 +203,18 @@ public class BasicGameApp2 implements Runnable, KeyListener {
                   coinshower[i].ypos = pacman.ypos;
                   coinshower[i].dx = pacman.dx;
                   coinshower[i].dy = pacman.dy;
+                  if (coinshower[i].crash == false) {
+                      CoinCounter = CoinCounter + 1;
+                      coinshower[i].crash = true;
+                  }
+                 // pacmaneating.play();
+
+
             }
         }
+
     }
+
 
 
     //Paints things on the screen using bufferStrategy
@@ -213,12 +225,20 @@ public class BasicGameApp2 implements Runnable, KeyListener {
         g.setColor(Color.WHITE);
         g.setFont(new Font("plain", Font.BOLD, 20));
         g.drawString("Health" + HealthBar, 220, 40);
+        g.setFont(new Font("plain", Font.BOLD, 20));
+        g.drawString("Coin Count" + CoinCounter, 500, 40);
+
 
     if(HealthBar<1){
         g.setColor(Color.WHITE);
         g.setFont(new Font("plain", Font.BOLD, 100));
         g.drawString("GAME OVER" , 200, 400);
 
+    }
+    if(CoinCounter == 35){
+        g.setColor(Color.WHITE);
+        g.setFont(new Font("plain", Font.BOLD, 100));
+        g.drawString("YOU WIN" , 200, 400);
     }
 
         g.setColor(new Color(50,90,80));
@@ -288,49 +308,50 @@ public class BasicGameApp2 implements Runnable, KeyListener {
 
     @Override
     public void keyPressed(KeyEvent e) {
-        System.out.println("press key"+e.getKeyCode());
-        keyNum= e.getKeyCode();
-        if(keyNum==37){
-            pacman.dx= -10;
-            pacman.dy=0;
+        System.out.println("press key" + e.getKeyCode());
+        keyNum = e.getKeyCode();
+        if (keyNum == 37) {
+            pacman.dx = -10;
+            pacman.dy = 0;
         }
-        if(keyNum==39){
+        if (keyNum == 39) {
             pacman.dx = 10;
             pacman.dy = 0;
         }
-        if(keyNum==38){
+        if (keyNum == 38) {
             pacman.dx = 0;
             pacman.dy = -10;
         }
-        if(keyNum==40){
+        if (keyNum == 40) {
             pacman.dx = 0;
             pacman.dy = 10;
+
         }
-        if(HealthBar<1){
+        if (keyNum == 65) {
+            pinkGhost.dx = -10;
+            pinkGhost.dy = 0;
+        }
+        if (keyNum == 68) {
+            pinkGhost.dx = 10;
+            pinkGhost.dy = 0;
+        }
+        if (keyNum == 87) {
+            pinkGhost.dx = 0;
+            pinkGhost.dy = -10;
+        }
+        if (keyNum == 83) {
+            pinkGhost.dx = 0;
+            pinkGhost.dy = 10;
+        }
+        if (HealthBar < 1) {
             pacman.dx = 0;
             pacman.dy = 0;
             pinkGhost.dx = 0;
             pinkGhost.dy = 0;
             blueGhost.dx = 0;
             blueGhost.dy = 0;
-        }
-        if(keyNum==65){
-            pinkGhost.dx= -10;
-            pinkGhost.dy=0;
-        }
-        if(keyNum==68){
-            pinkGhost.dx = 10;
-            pacman.dy = 0;
-        }
-        if(keyNum==87){
-            pinkGhost.dx = 0;
-            pinkGhost.dy = -10;
-        }
-        if(keyNum==83){
-            pinkGhost.dx = 0;
-            pinkGhost.dy = 10;
-        }
 
+        }
     }
 
     @Override
@@ -350,6 +371,22 @@ public class BasicGameApp2 implements Runnable, KeyListener {
         if(keyNum==40){
             pacman.dx = 0;
             pacman.dy = 0;
+        }
+        if(keyNum==65){
+            pinkGhost.dx= 0;
+            pinkGhost.dy=0;
+        }
+        if(keyNum==68){
+            pinkGhost.dx = 0;
+            pacman.dy = 0;
+        }
+        if(keyNum==87){
+            pinkGhost.dx = 0;
+            pinkGhost.dy = 0;
+        }
+        if(keyNum==83){
+            pinkGhost.dx = 0;
+            pinkGhost.dy = 0;
         }
     }
 }

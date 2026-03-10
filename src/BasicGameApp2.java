@@ -51,6 +51,7 @@ public class BasicGameApp2 implements Runnable, KeyListener {
     public boolean firstcharactercrash;
     public boolean secondCrash;
     public boolean coinPacmanCrash;
+    public int HealthBar = 8;
 
     // Main method definition
     // This is the code that runs first and automatically
@@ -102,6 +103,7 @@ public class BasicGameApp2 implements Runnable, KeyListener {
             checkCrash();
             firstEvilCrash();
             pacmanpinkcrash();
+            coinPacmanCrash();
 
 
             render();  // paint the graphics
@@ -118,7 +120,7 @@ public class BasicGameApp2 implements Runnable, KeyListener {
         }
         pacman.move();
         blueGhost.bounce();
-        pinkGhost.bounce();
+        pinkGhost.move();
     }
 
     public void checkCrash(){
@@ -148,9 +150,17 @@ public class BasicGameApp2 implements Runnable, KeyListener {
                 firstcharactercrash = false;
                 pinkGhost.dx = -pinkGhost.dx;
                 pinkGhost.dy = -pinkGhost.dy;
-                pacman.dx = -pacman.dx;
-                pacman.dy = -pacman.dy;
-                pacman.isAlive = false;
+                pinkGhost.bounce();
+//                pacman.dx = -pacman.dx;
+//                pacman.dy = -pacman.dy;
+                if(HealthBar > 0){
+                    HealthBar = HealthBar - 1;
+                }
+                if(HealthBar == 0){
+                    pacman.isAlive = false;
+                }
+
+
 //            voldemort.height += 10;
 //            voldemort.width += 10;
                 }
@@ -174,9 +184,9 @@ public class BasicGameApp2 implements Runnable, KeyListener {
             pacman.dx = -pacman.dx;
             pacman.dy = -pacman.dy;
         }
-        if(pacman.isAlive== false) {
-            pacman.isAlive = true;
-        }
+//        if(pacman.isAlive== false) {
+//            pacman.isAlive = true;
+//        }
 
         if (pacman.rect.intersects(blueGhost.rect) == false) {
             secondCrash = true;
@@ -185,18 +195,12 @@ public class BasicGameApp2 implements Runnable, KeyListener {
     }
     public void coinPacmanCrash() {
         for (int i = 0; i < coinshower.length; i++) {
-            coinshower[i] = new Coin("nope", (int) (Math.random() * 1000), (int) (Math.random() * 1000), 0.3);
-        coinshower[i].rect = new Rectangle();
-        pacman.rect = new Rectangle();
-      if (coinshower[i].rect.intersects(pacman.rect) == true){
-          coinshower[i].xpos = pacman.xpos;
-          coinshower[i].ypos = pacman.ypos;
-          coinshower[i].dx = pacman.dx;
-          coinshower[i].dy = pacman.dy;
-          coinshower[i].rect = new Rectangle();
-
-      }
-
+            if (coinshower[i].rect.intersects(pacman.rect) == true){
+                  coinshower[i].xpos = pacman.xpos;
+                  coinshower[i].ypos = pacman.ypos;
+                  coinshower[i].dx = pacman.dx;
+                  coinshower[i].dy = pacman.dy;
+            }
         }
     }
 
@@ -206,7 +210,16 @@ public class BasicGameApp2 implements Runnable, KeyListener {
         Graphics2D g = (Graphics2D) bufferStrategy.getDrawGraphics();
         g.clearRect(0, 0, WIDTH, HEIGHT);
         g.drawImage(background, 0,0, WIDTH,HEIGHT,null);
+        g.setColor(Color.WHITE);
+        g.setFont(new Font("plain", Font.BOLD, 20));
+        g.drawString("Health" + HealthBar, 220, 40);
 
+    if(HealthBar<1){
+        g.setColor(Color.WHITE);
+        g.setFont(new Font("plain", Font.BOLD, 100));
+        g.drawString("GAME OVER" , 200, 400);
+
+    }
 
         g.setColor(new Color(50,90,80));
       //  g.fillRect(800,70,(100-voldemort.health),15, voldemort.health);
@@ -214,8 +227,8 @@ public class BasicGameApp2 implements Runnable, KeyListener {
         if (pacman.isAlive == false) {
             g.drawImage(death, pacman.xpos, pacman.ypos, pacman.width, pacman.height, null);
         }  else {
-                g.drawImage(packmanImage, pacman.xpos, pacman.ypos, pacman.width, pacman.height, null);
-            }
+            g.drawImage(packmanImage, pacman.xpos, pacman.ypos, pacman.width, pacman.height, null);
+        }
         g.drawImage(blueghostImage, blueGhost.xpos, blueGhost.ypos, blueGhost.width, blueGhost.height, null);
         g.drawImage(pinkghostImage, pinkGhost.xpos, pinkGhost.ypos, pinkGhost.width, pinkGhost.height, null);
 
@@ -292,6 +305,30 @@ public class BasicGameApp2 implements Runnable, KeyListener {
         if(keyNum==40){
             pacman.dx = 0;
             pacman.dy = 10;
+        }
+        if(HealthBar<1){
+            pacman.dx = 0;
+            pacman.dy = 0;
+            pinkGhost.dx = 0;
+            pinkGhost.dy = 0;
+            blueGhost.dx = 0;
+            blueGhost.dy = 0;
+        }
+        if(keyNum==65){
+            pinkGhost.dx= -10;
+            pinkGhost.dy=0;
+        }
+        if(keyNum==68){
+            pinkGhost.dx = 10;
+            pacman.dy = 0;
+        }
+        if(keyNum==87){
+            pinkGhost.dx = 0;
+            pinkGhost.dy = -10;
+        }
+        if(keyNum==83){
+            pinkGhost.dx = 0;
+            pinkGhost.dy = 10;
         }
 
     }

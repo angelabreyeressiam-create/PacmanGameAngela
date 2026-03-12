@@ -35,6 +35,7 @@ public class Pacman {
         rect = new Rectangle(xpos,ypos,width,height);
         successRate = psuccess;
         health = 500;
+
  
     }
 

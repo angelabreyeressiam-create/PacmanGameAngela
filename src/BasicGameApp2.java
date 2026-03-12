@@ -53,8 +53,8 @@ public class BasicGameApp2 implements Runnable, KeyListener {
     public boolean coinPacmanCrash;
     public int HealthBar = 8;
     public int CoinCounter;
- //   public SoundFile pacmaneating;
- //   pacmaneating = new SoundFile("pacmaneating.wav");
+    public SoundFile pacmaneating;
+
 
     // Main method definition
     // This is the code that runs first and automatically
@@ -109,10 +109,12 @@ public class BasicGameApp2 implements Runnable, KeyListener {
             coinPacmanCrash();
 
 
+
             render();  // paint the graphics
             pause(30); // sleep for 10 ms
         }
     }
+
 
 
     public void moveThings() {
@@ -198,16 +200,17 @@ public class BasicGameApp2 implements Runnable, KeyListener {
     }
     public void coinPacmanCrash() {
         for (int i = 0; i < coinshower.length; i++) {
-            if (coinshower[i].rect.intersects(pacman.rect) == true){
-                  coinshower[i].xpos = pacman.xpos;
-                  coinshower[i].ypos = pacman.ypos;
-                  coinshower[i].dx = pacman.dx;
-                  coinshower[i].dy = pacman.dy;
-                  if (coinshower[i].crash == false) {
-                      CoinCounter = CoinCounter + 1;
-                      coinshower[i].crash = true;
-                  }
-                 // pacmaneating.play();
+            if (coinshower[i].rect.intersects(pacman.rect) == true) {
+                coinshower[i].xpos = pacman.xpos;
+                coinshower[i].ypos = pacman.ypos;
+                coinshower[i].dx = pacman.dx;
+                coinshower[i].dy = pacman.dy;
+                if (coinshower[i].crash == false) {
+                    CoinCounter = CoinCounter + 1;
+                    coinshower[i].crash = true;
+                }
+                pacmaneating = new SoundFile("pacmaneating.wav");
+                pacmaneating.play();
 
 
             }
@@ -312,35 +315,29 @@ public class BasicGameApp2 implements Runnable, KeyListener {
         keyNum = e.getKeyCode();
         if (keyNum == 37) {
             pacman.dx = -10;
-            pacman.dy = 0;
+
         }
         if (keyNum == 39) {
             pacman.dx = 10;
-            pacman.dy = 0;
+
         }
         if (keyNum == 38) {
-            pacman.dx = 0;
             pacman.dy = -10;
         }
         if (keyNum == 40) {
-            pacman.dx = 0;
             pacman.dy = 10;
 
         }
         if (keyNum == 65) {
             pinkGhost.dx = -10;
-            pinkGhost.dy = 0;
         }
         if (keyNum == 68) {
             pinkGhost.dx = 10;
-            pinkGhost.dy = 0;
         }
         if (keyNum == 87) {
-            pinkGhost.dx = 0;
             pinkGhost.dy = -10;
         }
         if (keyNum == 83) {
-            pinkGhost.dx = 0;
             pinkGhost.dy = 10;
         }
         if (HealthBar < 1) {

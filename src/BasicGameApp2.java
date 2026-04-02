@@ -24,7 +24,8 @@ public class BasicGameApp2 implements Runnable, KeyListener {
     //Declare the variables used in the program
     //You can set their initial values too
 
-    //Sets the width and height of the program window
+    //Sets the widt
+    // h and height of the program window
     final int WIDTH = 1000;
     final int HEIGHT = 700;
 
@@ -83,6 +84,7 @@ public class BasicGameApp2 implements Runnable, KeyListener {
         pinkghostImage = Toolkit.getDefaultToolkit().getImage("pinkghost.png");
         blueGhost = new BlueGhost("blueghost.png", 500, 200, 0.25);
         blueghostImage = Toolkit.getDefaultToolkit().getImage("blueghost.png");
+        pacmaneating = new SoundFile("pacmaneating.wav");
 
 //        voldemort2 = new Voldemort ("voldemort.png", 500, 100, 0.25);
 //        voldemortImage2 = Toolkit.getDefaultToolkit().getImage("voldemort.png");
@@ -209,8 +211,10 @@ public class BasicGameApp2 implements Runnable, KeyListener {
                     CoinCounter = CoinCounter + 1;
                     coinshower[i].crash = true;
                 }
-                pacmaneating = new SoundFile("pacmaneating.wav");
-                pacmaneating.play();
+                if(coinshower[i].rect.intersects(pacman.rect) == true) {
+                    pacmaneating.play();
+                    System.out.println(pacmaneating.isPlaying());
+                }
 
 
             }

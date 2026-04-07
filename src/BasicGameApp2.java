@@ -212,13 +212,18 @@ public class BasicGameApp2 implements Runnable, KeyListener {
                     coinshower[i].crash = true;
                 }
                 if(coinshower[i].rect.intersects(pacman.rect) == true) {
-                    pacmaneating.play();
-                    System.out.println(pacmaneating.isPlaying());
+                    CoinSound();
                 }
 
 
             }
         }
+
+    }
+    public void CoinSound(){
+        pacmaneating = new SoundFile("pacmaneating.wav");
+        pacmaneating.play();
+        System.out.println(pacmaneating.isPlaying());
 
     }
 

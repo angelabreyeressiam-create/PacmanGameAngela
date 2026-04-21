@@ -11,6 +11,8 @@
 import java.awt.Graphics2D;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.awt.image.BufferStrategy;
 import java.awt.*;
 import javax.swing.JFrame;
@@ -18,7 +20,7 @@ import javax.swing.JPanel;
 
 //*******************************************************************************
 
-public class BasicGameApp2 implements Runnable, KeyListener {
+public class BasicGameApp2 implements Runnable, KeyListener, MouseListener {
 
     //Variable Definition Section
     //Declare the variables used in the program
@@ -45,7 +47,7 @@ public class BasicGameApp2 implements Runnable, KeyListener {
     Image death = Toolkit.getDefaultToolkit().getImage("deathemoji.png");
     Image background = Toolkit.getDefaultToolkit().getImage("background.jpeg");
     Image goldcoin = Toolkit.getDefaultToolkit().getImage("goldcoin.png");
-    Coin [] coinshower = new Coin[35];
+    Coin [] coinshower = new Coin[15];
     int keyNum=0;
 
     public boolean firstCrash;
@@ -207,25 +209,19 @@ public class BasicGameApp2 implements Runnable, KeyListener {
                 coinshower[i].ypos = pacman.ypos;
                 coinshower[i].dx = pacman.dx;
                 coinshower[i].dy = pacman.dy;
-                if (coinshower[i].crash == false) {
-                    CoinCounter = CoinCounter + 1;
-                    coinshower[i].crash = true;
-                }
-                if(coinshower[i].rect.intersects(pacman.rect) == true) {
-                    CoinSound();
-                }
-
-
+            }
+            if (coinshower[i].rect.intersects(pacman.rect) == true && coinshower[i].coinCrash == false) {
+                coinshower[i].coinCrash = true;
+                CoinCounter = CoinCounter + 1;
+                pacmaneating.play();
             }
         }
 
     }
-    public void CoinSound(){
-        pacmaneating = new SoundFile("pacmaneating.wav");
-        pacmaneating.play();
-        System.out.println(pacmaneating.isPlaying());
-
-    }
+//    public void CoinSound(Coin coin){
+//        pacmaneating = new SoundFile("pacmaneating.wav");
+//        pacmaneating.play();
+//    }
 
 
 
@@ -394,5 +390,31 @@ public class BasicGameApp2 implements Runnable, KeyListener {
             pinkGhost.dx = 0;
             pinkGhost.dy = 0;
         }
+    }
+
+    @Override
+    public void mouseClicked(MouseEvent e) {
+        System.out.println(e.getLocationOnScreen());
+
+    }
+
+    @Override
+    public void mousePressed(MouseEvent e) {
+
+    }
+
+    @Override
+    public void mouseReleased(MouseEvent e) {
+
+    }
+
+    @Override
+    public void mouseEntered(MouseEvent e) {
+
+    }
+
+    @Override
+    public void mouseExited(MouseEvent e) {
+
     }
 }

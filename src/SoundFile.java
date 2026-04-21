@@ -43,7 +43,7 @@ public class SoundFile {
     //stops playing the clip
     public void stop() {
         clip.stop();
-        clip.setFramePosition(0);
+//        clip.setFramePosition(0);
     }
 
     //plays the clip continuously

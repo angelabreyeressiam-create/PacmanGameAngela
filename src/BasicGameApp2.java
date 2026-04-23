@@ -44,16 +44,22 @@ public class BasicGameApp2 implements Runnable, KeyListener, MouseListener {
     Image blueghostImage;
     Image pinkghostImage;
     PinkGhost pinkGhost;
+    Coin cherryPic;
+    Coin strawberryPic;
     Image death = Toolkit.getDefaultToolkit().getImage("deathemoji.png");
     Image background = Toolkit.getDefaultToolkit().getImage("background.jpeg");
     Image goldcoin = Toolkit.getDefaultToolkit().getImage("goldcoin.png");
-    Coin [] coinshower = new Coin[15];
+    Coin [] coinshower = new Coin[35];
     int keyNum=0;
+    Image cherry = Toolkit.getDefaultToolkit().getImage("cherry.png");
+    Image strawberry = Toolkit.getDefaultToolkit().getImage("strawberry.png");
 
     public boolean firstCrash;
     public boolean firstcharactercrash;
     public boolean secondCrash;
     public boolean coinPacmanCrash;
+    public boolean cherryVisible = false;
+    public boolean strawberryVisible = false;
     public int HealthBar = 8;
     public int CoinCounter;
     public SoundFile pacmaneating;
@@ -111,6 +117,7 @@ public class BasicGameApp2 implements Runnable, KeyListener, MouseListener {
             firstEvilCrash();
             pacmanpinkcrash();
             coinPacmanCrash();
+            fruitPacmanCrash();
 
 
 
@@ -129,7 +136,7 @@ public class BasicGameApp2 implements Runnable, KeyListener, MouseListener {
         }
         pacman.move();
         blueGhost.bounce();
-        pinkGhost.move();
+        pinkGhost.bounce();
     }
 
     public void checkCrash(){
@@ -216,12 +223,45 @@ public class BasicGameApp2 implements Runnable, KeyListener, MouseListener {
                 pacmaneating.play();
             }
         }
+        boolean cherryNotOnScreen = !cherryVisible;
+        double randomNumber = Math.random();
+        boolean shouldSpawn = randomNumber < 0.004;
+        if (cherryNotOnScreen && shouldSpawn){
+            cherryPic = new Coin("cherry",(int)(Math.random()*200),(int)(Math.random()*400), 0.2);
+            cherryVisible = true;
+        }
+        boolean strawberryNotOnScreen = !strawberryVisible;
+        double randNumber = Math.random();
+        boolean shouSpawn = randNumber < 0.1;
+        if (strawberryNotOnScreen && shouSpawn){
+            strawberryPic = new Coin("strawberry",(int)(Math.random()*200),(int)(Math.random()*400), 0.2);
+            strawberryVisible = true;
+        }
 
     }
+    public void fruitPacmanCrash(){
+
+        if(cherryVisible && cherryPic.rect.intersects(pacman.rect)){
+            cherryPic.xpos = pacman.xpos;
+            cherryPic.ypos = pacman.ypos;
+            cherryPic.dx = pacman.dx;
+            cherryPic.dy = pacman.dy;
+        }
+        if(strawberryVisible && strawberryPic.rect.intersects(pacman.rect)){
+            strawberryPic.xpos = pacman.xpos;
+            strawberryPic.ypos = pacman.ypos;
+            strawberryPic.dx = pacman.dx;
+            strawberryPic.dy = pacman.dy;
+        }
+    }
+
 //    public void CoinSound(Coin coin){
 //        pacmaneating = new SoundFile("pacmaneating.wav");
 //        pacmaneating.play();
 //    }
+//    public void follow(Pacman pacman){
+//        double xDistance = pacman.xpos - this.xpos;
+
 
 
 
@@ -236,7 +276,12 @@ public class BasicGameApp2 implements Runnable, KeyListener, MouseListener {
         g.setFont(new Font("plain", Font.BOLD, 20));
         g.drawString("Coin Count" + CoinCounter, 500, 40);
 
-
+    if(cherryVisible){
+        g.drawImage(cherry,cherryPic.xpos,cherryPic.ypos,cherryPic.width,cherryPic.height,null);
+    }
+    if(strawberryVisible){
+        g.drawImage(strawberry,strawberryPic.xpos,strawberryPic.ypos, strawberryPic.width, strawberryPic.height, null);
+    }
     if(HealthBar<1){
         g.setColor(Color.WHITE);
         g.setFont(new Font("plain", Font.BOLD, 100));

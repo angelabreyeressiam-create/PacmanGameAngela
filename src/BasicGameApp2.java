@@ -136,6 +136,7 @@ public class BasicGameApp2 implements Runnable, KeyListener, MouseListener {
             coinshower[i].move();
         }
         cherryPic.move();
+        strawberryPic.move();
 
         pacman.move();
         blueGhost.bounce();
@@ -226,7 +227,21 @@ public class BasicGameApp2 implements Runnable, KeyListener, MouseListener {
                 pacmaneating.play();
             }
         }
-        if (CoinCounter == 10){
+        if (CoinCounter == 20) {
+            strawberryVisible = true;
+        }
+        if (strawberryPic.rect.intersects(pacman.rect) == true && strawberryVisible) {
+            strawberryPic.xpos = pacman.xpos;
+            strawberryPic.ypos = pacman.ypos;
+            strawberryPic.dx = pacman.dx;
+            strawberryPic.dy = pacman.dy;
+        }
+        if (strawberryPic.rect.intersects(pacman.rect) == true && strawberryVisible && strawberryPic.coinCrash == false) {
+            strawberryPic.coinCrash = true;
+            CoinCounter = CoinCounter + 5;
+//            pacmaneating.play();
+        }
+        if (CoinCounter == 10) {
             cherryVisible = true;
         }
         if (cherryPic.rect.intersects(pacman.rect) == true && cherryVisible) {
@@ -237,9 +252,7 @@ public class BasicGameApp2 implements Runnable, KeyListener, MouseListener {
         }
         if (cherryPic.rect.intersects(pacman.rect) == true && cherryVisible && cherryPic.coinCrash == false) {
             cherryPic.coinCrash = true;
-            CoinCounter = CoinCounter + 20;
-//            pacmaneating.play();
-        }
+            CoinCounter = CoinCounter + 6;
 //        double randomNumber = Math.random();
 ////        boolean shouldSpawn = randomNumber < 0.04;
 //        boolean strawberryNotOnScreen = !strawberryVisible;
@@ -250,6 +263,7 @@ public class BasicGameApp2 implements Runnable, KeyListener, MouseListener {
 //            strawberryVisible = true;
 //        }
 
+        }
     }
 //    public void fruitPacmanCrash(){
 //
@@ -290,7 +304,10 @@ public class BasicGameApp2 implements Runnable, KeyListener, MouseListener {
 
     if(strawberryVisible){
         g.drawImage(strawberry,strawberryPic.xpos,strawberryPic.ypos, strawberryPic.width, strawberryPic.height, null);
-    }
+  }
+    if(cherryVisible){
+            g.drawImage(cherry,cherryPic.xpos,cherryPic.ypos, cherryPic.width, cherryPic.height, null);
+        }
     if(HealthBar<1){
         g.setColor(Color.WHITE);
         g.setFont(new Font("plain", Font.BOLD, 100));
@@ -318,6 +335,9 @@ public class BasicGameApp2 implements Runnable, KeyListener, MouseListener {
 
         if(cherryVisible) {
             g.drawImage(cherry, cherryPic.xpos, cherryPic.ypos, cherryPic.width, cherryPic.height, null);
+        }
+        if(strawberryVisible) {
+            g.drawImage(strawberry, strawberryPic.xpos, strawberryPic.ypos, strawberryPic.width, strawberryPic.height, null);
         }
 
         for (int i = 0; i < coinshower.length; i++) {
@@ -377,6 +397,9 @@ public class BasicGameApp2 implements Runnable, KeyListener, MouseListener {
     public void keyPressed(KeyEvent e) {
         System.out.println("press key" + e.getKeyCode());
         keyNum = e.getKeyCode();
+        if(keyNum == 49){
+
+        }
         if (keyNum == 37) {
             pacman.dx = -10;
 

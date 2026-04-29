@@ -65,6 +65,7 @@ public class BasicGameApp2 implements Runnable, KeyListener, MouseListener {
     public SoundFile pacmaneating;
 
 
+
     // Main method definition
     // This is the code that runs first and automatically
     public static void main(String[] args) {
@@ -138,7 +139,7 @@ public class BasicGameApp2 implements Runnable, KeyListener, MouseListener {
         cherryPic.move();
         strawberryPic.move();
 
-        pacman.move();
+        pacman.wrap();
         blueGhost.bounce();
         pinkGhost.bounce();
     }
@@ -252,7 +253,7 @@ public class BasicGameApp2 implements Runnable, KeyListener, MouseListener {
         }
         if (cherryPic.rect.intersects(pacman.rect) == true && cherryVisible && cherryPic.coinCrash == false) {
             cherryPic.coinCrash = true;
-            CoinCounter = CoinCounter + 6;
+            CoinCounter = CoinCounter + 5;
 //        double randomNumber = Math.random();
 ////        boolean shouldSpawn = randomNumber < 0.04;
 //        boolean strawberryNotOnScreen = !strawberryVisible;
@@ -312,12 +313,24 @@ public class BasicGameApp2 implements Runnable, KeyListener, MouseListener {
         g.setColor(Color.WHITE);
         g.setFont(new Font("plain", Font.BOLD, 100));
         g.drawString("GAME OVER" , 200, 400);
+        pacman.dx = 0;
+        pacman.dy = 0;
+        pinkGhost.dx = 0;
+        pinkGhost.dy = 0;
+        blueGhost.dx = 0;
+        blueGhost.dy = 0;
 
     }
-    if(CoinCounter == 30){
+    if(CoinCounter == 35){
         g.setColor(Color.WHITE);
         g.setFont(new Font("plain", Font.BOLD, 100));
         g.drawString("YOU WIN" , 200, 400);
+        pacman.dx = 0;
+        pacman.dy = 0;
+        pinkGhost.dx = 0;
+        pinkGhost.dy = 0;
+        blueGhost.dx = 0;
+        blueGhost.dy = 0;
 
     }
 
@@ -397,9 +410,7 @@ public class BasicGameApp2 implements Runnable, KeyListener, MouseListener {
     public void keyPressed(KeyEvent e) {
         System.out.println("press key" + e.getKeyCode());
         keyNum = e.getKeyCode();
-        if(keyNum == 49){
 
-        }
         if (keyNum == 37) {
             pacman.dx = -10;
 
@@ -440,6 +451,7 @@ public class BasicGameApp2 implements Runnable, KeyListener, MouseListener {
 
     @Override
     public void keyReleased(KeyEvent e) {
+
         if(keyNum==37){
             pacman.dx= 0;
             pacman.dy=0;

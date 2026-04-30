@@ -288,7 +288,44 @@ public class BasicGameApp2 implements Runnable, KeyListener, MouseListener {
 //    }
 //    public void follow(Pacman pacman){
 //        double xDistance = pacman.xpos - this.xpos;
+public void resetGame(){
+        pacman.xpos = 100;
+        pacman.ypos = 400;
+        pacman.dx = 5;
+        pacman.dy = 5;
+        pacman.isAlive = true;
 
+        pinkGhost.xpos = 300;
+        pinkGhost.ypos = 300;
+        pinkGhost.dx = 5;
+        pinkGhost.dy = 5;
+
+        blueGhost.xpos = 500;
+        blueGhost.ypos = 200;
+        blueGhost.dx = 5;
+        blueGhost.dy = 5;
+
+        HealthBar = 8;
+        CoinCounter = 0;
+
+        cherryVisible = false;
+        strawberryVisible = false;
+
+    for (int i = 0; i < coinshower.length; i++) {
+        coinshower[i].xpos = (int)(Math.random()*990);
+        coinshower[i].ypos = (int)(Math.random()*500);
+        coinshower[i].coinCrash = false;
+
+
+    }
+    cherryPic.xpos = (int)(Math.random()*900);
+    cherryPic.ypos = (int)(Math.random()*400);
+    cherryPic.coinCrash = false;
+
+    strawberryPic.xpos = (int)(Math.random()*900);
+    strawberryPic.ypos = (int)(Math.random()*400);
+    strawberryPic.coinCrash = false;
+}
 
 
 
@@ -313,6 +350,8 @@ public class BasicGameApp2 implements Runnable, KeyListener, MouseListener {
         g.setColor(Color.WHITE);
         g.setFont(new Font("plain", Font.BOLD, 100));
         g.drawString("GAME OVER" , 200, 400);
+        g.setFont(new Font("plain", Font.BOLD, 40));
+        g.drawString("Press R to Reset" , 200, 600);
         pacman.dx = 0;
         pacman.dy = 0;
         pinkGhost.dx = 0;
@@ -321,10 +360,12 @@ public class BasicGameApp2 implements Runnable, KeyListener, MouseListener {
         blueGhost.dy = 0;
 
     }
-    if(CoinCounter == 35){
+    if(CoinCounter == 40){
         g.setColor(Color.WHITE);
         g.setFont(new Font("plain", Font.BOLD, 100));
         g.drawString("YOU WIN" , 200, 400);
+        g.setFont(new Font("plain", Font.BOLD, 40));
+        g.drawString("Press R to Reset" , 200, 600);
         pacman.dx = 0;
         pacman.dy = 0;
         pinkGhost.dx = 0;
@@ -410,6 +451,24 @@ public class BasicGameApp2 implements Runnable, KeyListener, MouseListener {
     public void keyPressed(KeyEvent e) {
         System.out.println("press key" + e.getKeyCode());
         keyNum = e.getKeyCode();
+        if(keyNum ==50){
+            System.out.println("Game is now level 2");
+            pinkGhost.dx = pinkGhost.dx*2;
+            pinkGhost.dy = pinkGhost.dy*2;
+
+            blueGhost.dx = blueGhost.dx*2;
+            blueGhost.dy = blueGhost.dy*2;
+
+        }
+        if(keyNum ==51){
+            System.out.println("Game is now level 3");
+            pinkGhost.dx = pinkGhost.dx*3;
+            pinkGhost.dy = pinkGhost.dy*3;
+
+            blueGhost.dx = blueGhost.dx*3;
+            blueGhost.dy = blueGhost.dy*3;
+
+        }
 
         if (keyNum == 37) {
             pacman.dx = -10;
@@ -446,6 +505,9 @@ public class BasicGameApp2 implements Runnable, KeyListener, MouseListener {
             blueGhost.dx = 0;
             blueGhost.dy = 0;
 
+        }
+        if (keyNum == 82){
+            resetGame();
         }
     }
 

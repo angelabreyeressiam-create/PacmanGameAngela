@@ -51,8 +51,13 @@ public class BasicGameApp2 implements Runnable, KeyListener, MouseListener {
     Image goldcoin = Toolkit.getDefaultToolkit().getImage("goldcoin.png");
     Coin [] coinshower = new Coin[30];
     int keyNum=0;
+    int buttonX = 400;
+    int buttomY = 600;
+    int buttonWidth = 150;
+    int buttonHeight = 50;
     Image cherry = Toolkit.getDefaultToolkit().getImage("cherry.png");
     Image strawberry = Toolkit.getDefaultToolkit().getImage("strawberry.png");
+
 
     public boolean firstCrash;
     public boolean firstcharactercrash;
@@ -339,6 +344,10 @@ public void resetGame(){
         g.drawString("Health" + HealthBar, 220, 40);
         g.setFont(new Font("plain", Font.BOLD, 20));
         g.drawString("Coin Count" + CoinCounter, 500, 40);
+        g.clearRect(buttonX,buttomY,buttonWidth,buttonHeight);
+        g.setColor(Color.BLACK);
+        g.setFont(new Font("plain", Font.BOLD, 20));
+        g.drawString("RESET", buttonX+50,buttomY+30);
 
     if(strawberryVisible){
         g.drawImage(strawberry,strawberryPic.xpos,strawberryPic.ypos, strawberryPic.width, strawberryPic.height, null);
@@ -351,7 +360,7 @@ public void resetGame(){
         g.setFont(new Font("plain", Font.BOLD, 100));
         g.drawString("GAME OVER" , 200, 400);
         g.setFont(new Font("plain", Font.BOLD, 40));
-        g.drawString("Press R to Reset" , 200, 600);
+        g.drawString("CLick to Reset" , 200, 600);
         pacman.dx = 0;
         pacman.dy = 0;
         pinkGhost.dx = 0;
@@ -365,7 +374,7 @@ public void resetGame(){
         g.setFont(new Font("plain", Font.BOLD, 100));
         g.drawString("YOU WIN" , 200, 400);
         g.setFont(new Font("plain", Font.BOLD, 40));
-        g.drawString("Press R to Reset" , 200, 600);
+        g.drawString("Click to Reset" , 200, 600);
         pacman.dx = 0;
         pacman.dy = 0;
         pinkGhost.dx = 0;
@@ -427,6 +436,7 @@ public void resetGame(){
 
         panel.add(canvas);  // adds the canvas to the panel.
         canvas.addKeyListener(this);
+        canvas.addMouseListener(this);
 
         // frame operations
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);  //makes the frame close and exit nicely
@@ -506,9 +516,8 @@ public void resetGame(){
             blueGhost.dy = 0;
 
         }
-        if (keyNum == 82){
-            resetGame();
-        }
+
+
     }
 
     @Override
@@ -550,12 +559,20 @@ public void resetGame(){
 
     @Override
     public void mouseClicked(MouseEvent e) {
-        System.out.println(e.getLocationOnScreen());
+
 
     }
 
     @Override
     public void mousePressed(MouseEvent e) {
+        int x = e.getX();
+        int y = e.getY();
+
+        if( x > buttonX && x < buttonX + buttonWidth && y > buttomY && y < buttomY + buttonHeight ){
+            resetGame();
+
+        }
+
 
     }
 
